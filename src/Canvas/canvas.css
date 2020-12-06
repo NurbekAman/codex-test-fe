@@ -1,0 +1,9 @@
+.canvas {
+  margin: 20px auto;
+  border: 2px solid blue;
+}
+
+td {
+  width: 15px;
+  height: 15px;
+}

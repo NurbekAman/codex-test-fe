@@ -1,23 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useCallback } from 'react';
+
+import CanvasList from './CanvasList';
+import CanvasForm from './CanvasForm';
+import Loading from './Loading';
+import Error from './Error';
 
 function App() {
+  const [canvasList, setCanvasList] = useState([]);
+  const [error, setError] = useState();
+  const [loading, setLoading] = useState(false);
+
+  const onSubmit = useCallback(async (file) => {
+    setError(null);
+    setLoading(true);
+    try {
+      const result = await fetch(`http://localhost:6006/upload/file=${file.name}`, {
+        method: 'POST',
+        body: file,
+        headers: {
+          contentType: 'text/plain'
+        }
+      });
+
+      const data = await result.json();
+
+      if (result.status === 400) {
+        throw data;
+      }
+
+      if (data && data.length) {
+        setCanvasList(data);
+      }
+    } catch (e) {
+      setCanvasList([]);
+      setError(e);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <CanvasForm onSubmit={onSubmit} />
+      {loading && <Loading />}
+      {error && <Error error={error} />}
+      {canvasList.length > 0 && (
+        <CanvasList canvasList={canvasList} />
+      )}
     </div>
   );
 }
