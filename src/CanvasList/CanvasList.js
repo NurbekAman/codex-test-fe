@@ -4,19 +4,16 @@ import Canvas from '../Canvas';
 
 import './canvas-list.css';
 
-export const CanvasList = ({ canvasList }) => {
-  console.log(canvasList);
-  return (
+export const CanvasList = ({ canvasList }) => (
+  <div>
+    <h3 className="canvas-list-title">Canvas list</h3>
     <div>
-      <h3 className="canvas-list-title">Canvas list</h3>
-      <div>
-        {canvasList.map((canvas, index) => (
-          <Canvas canvas={canvas} key={index} />
-        ))}
-      </div>
+      {canvasList.map((canvas, index) => (
+        <Canvas canvas={canvas} key={index} />
+      ))}
     </div>
-  );
-};
+  </div>
+);
 
 CanvasList.propTypes = {
   canvasList: PropTypes.arrayOf(
