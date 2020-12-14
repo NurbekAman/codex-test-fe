@@ -1,11 +1,14 @@
+.canvas-wrapper {
+  margin: 20px 20px;
+}
+
 .canvas {
-  margin: 20px auto;
   border: 2px solid blue;
   width: 100%;
   table-layout: fixed;
 }
 
 td {
-  width: 10px;
-  height: 10px;
+  width: 15px;
+  height: 15px;
 }

@@ -7,15 +7,17 @@ import './canvas.css';
 
 export const Canvas = ({ canvas }) => {
   return (
-    <table className="canvas">
-      <tbody>
-      {
-        canvas.map((row, index) => (
-          <CanvasRow row={row} i={index} key={index} />
-        ))
-      }
-      </tbody>
-    </table>
+    <div className="canvas-wrapper">
+      <table className="canvas">
+        <tbody>
+        {
+          canvas.map((row, index) => (
+            <CanvasRow row={row} i={index} key={index} />
+          ))
+        }
+        </tbody>
+      </table>
+    </div>
   );
 };
 
