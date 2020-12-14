@@ -39,14 +39,24 @@ function App() {
     }
   }, []);
 
+  const renderContent = () => {
+    if (loading) {
+      return <Loading />;
+    }
+
+    if (error) {
+      return <Error error={error} />
+    }
+
+    return canvasList.length > 0 && (
+      <CanvasList canvasList={canvasList} />
+    );
+  }
+
   return (
     <div>
       <CanvasForm onSubmit={onSubmit} />
-      {loading && <Loading />}
-      {error && <Error error={error} />}
-      {canvasList.length > 0 && (
-        <CanvasList canvasList={canvasList} />
-      )}
+      {renderContent()}
     </div>
   );
 }
